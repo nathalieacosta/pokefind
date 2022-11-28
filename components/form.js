@@ -485,7 +485,7 @@ export default function Form({ selected }) {
   return (
     <div>
     <form action="/api/raids" method="POST" onSubmit={handleSubmit}>
-      <div className="flex flex-row justify-center bg-slate-700 rounded-3xl p-5 m-2">
+      <div className="flex flex-col sm:flex-row justify-center bg-slate-700 rounded-3xl p-5 m-">
         <div className="flex flex-col m-auto">
           <label>pokémon</label>
           <Select
@@ -532,7 +532,7 @@ export default function Form({ selected }) {
             required
           ></input>
         </div>
-        <button className="bg-slate-300 text-black p-3 rounded-3xl" type="submit">submit</button>
+        <button className="mt-5 bg-slate-300 text-black p-3 rounded-3xl" type="submit">submit</button>
       </div>
     </form>
     </div>
