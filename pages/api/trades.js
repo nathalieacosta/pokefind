@@ -1,5 +1,5 @@
 import dbConnect from "../../lib/dbConnect";
-import Raid from "../../models/Raid";
+import Trade from "../../models/Trade";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const raids = await Raid.find({});
+        const raids = await Trade.find({});
         res.status(200).json({ success: true, data: raids });
       } catch (err) {
         console.log(err);
@@ -17,29 +17,22 @@ export default async function handler(req, res) {
       break;
     case "POST":
       try {
-        const { pokemon, teraType, stars, linkCode } = JSON.parse(req.body);
-        if (!pokemon || !teraType || !stars || !linkCode) {
+        const { text, contact } = JSON.parse(req.body);
+        if (!text || !contact) {
           return res
             .status(400)
             .json({ success: false, message: "please fill out all fields" });
         }
-        if (linkCode.length < 6) {
-          return res
-            .status(400)
-            .json({
-              success: false,
-              message: "please enter a valid link code",
-            });
+
+        if (text.length > 50 || contact.length > 50) {
+            return res.status(400).json({success: false, message: "please do not go over 50 characters"})
         }
 
-        const raid = await Raid.create({
-          pokemon,
-          teraType,
-          stars,
-          linkCode,
+        const trade = await Trade.create({
+          text,
+          contact
         });
-
-        res.status(201).json({ success: true, data: raid });
+        res.status(201).json({ success: true, data: trade });
       } catch (err) {
         console.log(err);
         res.status(400).json({ success: false, message: "server error" });

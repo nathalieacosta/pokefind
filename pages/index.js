@@ -23,7 +23,7 @@ export default function Home() {
           <span className="text-2xl my-2">
             pokéfind is a website where you can post and find the latest
             <span className="font-medium"> Pokémon Scarlet and Violet </span>
-            raids
+            raids and trades
           </span>
           {/* <span className="text-2xl my-2">
             creating an account is optional but will let you give and receive
@@ -38,14 +38,7 @@ export default function Home() {
           </div> */}
           <span className="text-2xl my-2">
             click one of the tabs above to get started
-          </span>
-          <span className="text-2xl font-medium">
-            planned updates
-          </span>
-          <span className="text-xl">
-          → add trades and battles
-          </span>
-          
+          </span>    
           <div className="flex flex-row justify-center mt-2">
           <img width="200" src="https://archives.bulbagarden.net/media/upload/thumb/2/24/Koraidon.png/500px-Koraidon.png"></img>
           <img width="200" src="https://archives.bulbagarden.net/media/upload/thumb/f/fb/Miraidon.png/500px-Miraidon.png"></img>

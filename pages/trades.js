@@ -7,10 +7,10 @@ import Form from "../components/form";
 import Navbar from "../components/navbar";
 import Mainview from "../components/mainview";
 import dbConnect from "../lib/dbConnect";
-import Raid from "../models/Raid";
+import Trade from "../models/Trade";
 // OTHER //
 
-export default function Raids({ raids }) {
+export default function Raids({ trades }) {
   const router = useRouter();
   const handleClick = () => {
     router.replace(router.asPath);
@@ -19,15 +19,15 @@ export default function Raids({ raids }) {
   return (
     <div className="">
       <Head>
-        <title>pokéfind | raids</title>
+        <title>pokéfind | trades</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Navbar />
       <Mainview>
         <div className="flex flex-col font-light">
-          <span className="text-4xl mb-2">post a raid</span>
-          <Form page="raids"/>
-          <span className="text-4xl mt-2">view raids (last 3 minutes)</span>
+          <span className="text-4xl mb-2">post a trade</span>
+          <Form page="trades"/>
+          <span className="text-4xl mt-2">view trades (last 1 day)</span>
           <button
             className="text-2xl bg-slate-400 my-2 mx-auto p-4 rounded-3xl"
             onClick={handleClick}
@@ -36,24 +36,14 @@ export default function Raids({ raids }) {
           </button>
         </div>
         <div className="flex flex-row flex-wrap justify-center mb-8">
-          {raids.map((raid) => (
+          {trades.map((trade) => (
             <div
-              className="text-2xl bg-slate-700 rounded-2xl p-5 w-[300px] my-4 mx-10"
-              key={raid._id}
+              className="text-2xl bg-slate-700 rounded-2xl p-5 w-full my-4 mx-10"
+              key={trade._id}
             >
-              <div className="flex flex-row m-auto justify-center">
-                <div>
-                  <span className="font-medium mx-3">{raid.pokemon}</span>
-                  <img className="mx-3" width="100" src={raid.teraType}></img>
-                  <img className="mx-3" width="100" src={raid.pokePic}></img>
-                </div>
-                <div className="flex flex-col my-auto">
-                  <span className="mx-3 my-2">{raid.stars}★</span>
-                  code: {raid.linkCode}
-                  <span className="mx-3 my-2">
-                    {raid.minutes}:{raid.seconds}
-                  </span>
-                </div>
+              <div className="flex flex-col m-auto justify-center">
+                  <span className="font-medium mx-3">{trade.text}</span>
+                  <span className="mx-3">contact me at: {trade.contact}</span>
               </div>
             </div>
           ))}
@@ -73,34 +63,25 @@ export async function getServerSideProps() {
     const seconds = sec - minutes * 60;
     return { minutes: minutes, seconds: seconds };
   };
-  const result = await Raid.find({
-    createdAt: { $gte: now - 60000 * 3, $lt: now },
+  const result = await Trade.find({
+    createdAt: { $gte: now - 60000 * 60 * 24, $lt: now },
   }).sort({ createdAt: -1 });
 
-  const raids = result.map((doc) => {
+  const trades = result.map((doc) => {
     const timeRemaining = getMinutes(
-      180 - Math.round(Math.abs(now.getTime() - doc.createdAt.getTime()) / 1000)
+      86400 - Math.round(Math.abs(now.getTime() - doc.createdAt.getTime()) / 1000)
     );
     if (timeRemaining.seconds.toString().length < 2) {
       timeRemaining.seconds = "0" + timeRemaining.seconds;
     }
-    const pokePic =
-      "https://img.pokemondb.net/sprites/scarlet-violet/normal/" +
-      doc.pokemon.toLowerCase() +
-      ".png";
-
-    let teraPic = doc.teraType.toLowerCase() + ".png";
     return {
       id: doc._id.toString(),
-      pokemon: doc.pokemon,
-      pokePic: pokePic,
-      teraType: teraPic,
-      stars: doc.stars,
-      linkCode: doc.linkCode,
+      text: doc.text,
+      contact: doc.contact,
       minutes: timeRemaining.minutes,
       seconds: timeRemaining.seconds,
     };
   });
 
-  return { props: { raids: raids } };
+  return { props: { trades: trades } };
 }
