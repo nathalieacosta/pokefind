@@ -29,7 +29,7 @@ export default function Raids({ raids }) {
           <span className="text-4xl">post a raid</span>
           <span className="text-xl">all fields are required! post once every 3 minutes!</span>
           <Form />
-          <span className="text-4xl">view raids (last 3 minutes)</span>
+          <span className="text-4xl mt-2">view raids (last 3 minutes)</span>
           <button
             className="text-2xl bg-slate-400 my-2 mx-auto p-4 rounded-3xl"
             onClick={handleClick}

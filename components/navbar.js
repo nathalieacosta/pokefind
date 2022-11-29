@@ -12,7 +12,7 @@ export default function Navbar() {
             <span className="text-5xl font-medium">pokéfind </span>
             </div>
           </Link>
-        <div className="flex flex-row justify-center my-auto">
+        <div className="flex flex-row justify-center my-auto mt-2">
           {/* <span className="mx-2 my-auto bg-slate-600 rounded-xl p-2">
           login or register
         </span> */}

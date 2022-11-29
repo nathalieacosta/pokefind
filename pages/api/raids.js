@@ -24,7 +24,7 @@ export default async function handler(req, res) {
             .status(400)
             .json({ success: false, message: "please fill out all fields" });
         }
-
+        
         const raid = await Raid.create({
           pokémon,
           teraType,
