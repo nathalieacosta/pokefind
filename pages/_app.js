@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import Head from "next/head";
+import NextProgressBar from "nextjs-progressbar";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -7,6 +8,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <link rel="shortcut icon" href="/favicon.ico"></link>
       </Head>
+      <NextProgressBar />
       <Component {...pageProps} />
     </div>
   );

@@ -8,7 +8,7 @@ export default function Navbar() {
         <Link href="/">
           <div className="flex flex-row justify-center my-auto">
             <img width="50" src="pikachu.png"></img>
-            <span className="text-5xl font-medium">pokéfind </span>
+            <span className="text-5xl font-medium mb-2">pokéfind </span>
           </div>
         </Link>
         <div className="flex flex-row justify-center my-auto mt-2">
